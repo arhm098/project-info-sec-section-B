@@ -1,2 +1,2 @@
 for i in range(4):
-    print(i*i)
+    print(i*i*i)
