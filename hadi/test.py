@@ -1,2 +1,1 @@
-while True:
-    print("self destruct sequince starting")
+print("self destruct sequince starting")
