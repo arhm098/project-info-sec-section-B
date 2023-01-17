@@ -1,0 +1,48 @@
+pipeline {
+    agent any
+    
+    tools {nodejs "node"}
+    stages {
+        stage('clone') {
+            steps {
+                echo 'cloning'
+                git branch: 'main', url: 'https: //github.com/arhm098/project-info-sec-section-B.git'
+            }
+        }
+         stage('frontend') {
+            steps {
+                echo 'frontend-arham'
+                dir("${env.WORKSPACE}/arham/frontend/src/"){
+                echo pwd()
+                }
+                bat "npm install"
+                bat "npm build"
+            }
+        }
+        stage('test1') {
+            steps {
+                echo 'test-python-hadi'
+                
+                bat "Python ./hadi/test.py"
+            }
+        }
+        stage('test2') {
+            steps {
+                echo 'test-python-tayyab'
+                
+                bat "Python ./tayyab/test.py"
+            }
+        }
+         stage('test') {
+            steps {
+                echo 'testing'
+                 snykSecurity(
+          snykInstallation: 'synk',
+          snykTokenId: 'synk-api-token',
+           additionalArguments: '--all-projects'
+
+        )
+            }
+        }
+    }
+}
